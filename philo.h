@@ -6,7 +6,7 @@
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 00:13:32 by yokten            #+#    #+#             */
-/*   Updated: 2023/08/29 15:54:48 by yokten           ###   ########.fr       */
+/*   Updated: 2023/08/29 16:14:52 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_data
 	int		time_to_sleep;
 	int		number_of_times_each_philosopher_must_eat;
 	int		*fork;
+	int		*philosophers;
 }	t_data;
 
 int		args_control(int ac, char **av);
