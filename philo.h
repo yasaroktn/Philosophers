@@ -6,7 +6,7 @@
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 00:13:32 by yokten            #+#    #+#             */
-/*   Updated: 2023/08/29 16:14:52 by yokten           ###   ########.fr       */
+/*   Updated: 2023/08/31 01:42:11 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,19 @@
 
 typedef struct s_data
 {
-	int		number_of_philosophers;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		number_of_times_each_philosopher_must_eat;
-	int		*fork;
-	int		*philosophers;
+	int			number_of_philosophers;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			number_of_times_each_philosopher_must_eat;
+	int			*fork;
+	t_philo		*philosophers;
 }	t_data;
+
+typedef struct s_philo
+{
+	pthread_t	th;
+}	t_philo;
 
 int		args_control(int ac, char **av);
 int		ft_isdigit(int c);
