@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_menagement.c                                :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 13:00:39 by yokten            #+#    #+#             */
-/*   Updated: 2023/09/03 20:28:04 by yokten           ###   ########.fr       */
+/*   Created: 2023/09/03 21:07:02 by yokten            #+#    #+#             */
+/*   Updated: 2023/09/04 02:33:08 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	add_malloc(t_data	*flow)
+int	compute_time(t_philo	*philo)
 {
-	flow->fork = malloc(sizeof(pthread_mutex_t) * flow->number_of_philosophers);
-	flow->philosophers = malloc(sizeof(int) * flow->number_of_philosophers);
-	if (!flow->fork || !flow->philosophers)
-		return (1);
-	return (0);
+	gettimeofday(&philo->timeval, NULL);
+	return ((philo->timeval.tv_sec * 1000) + (philo->timeval.tv_usec / 1000));
+}
+
+int	philo_eat(t_philo	*philo, char *message)
+{
+	
 }

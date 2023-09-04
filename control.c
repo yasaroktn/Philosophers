@@ -6,7 +6,7 @@
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 08:49:00 by yokten            #+#    #+#             */
-/*   Updated: 2023/08/30 17:39:02 by yokten           ###   ########.fr       */
+/*   Updated: 2023/09/04 01:31:12 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	args_assignment(t_data *flow, char	**av)
 		flow->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
 	else
 		flow->number_of_times_each_philosopher_must_eat = -1;
+	flow->philosophers->start_time = compute_time(flow->philosophers);
 }
 
 int	args_control(int ac, char **av)
@@ -35,6 +36,8 @@ int	args_control(int ac, char **av)
 	while (av[i] != NULL)
 	{
 		j = 0;
+		if (ft_atoi(av[i]) < 1)
+			return (1);
 		while (av[i][j])
 		{
 			if (!ft_isdigit(av[i][j]))
