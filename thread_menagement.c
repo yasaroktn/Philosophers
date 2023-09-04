@@ -6,7 +6,7 @@
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 12:18:02 by yokten            #+#    #+#             */
-/*   Updated: 2023/09/04 03:01:43 by yokten           ###   ########.fr       */
+/*   Updated: 2023/09/04 03:48:20 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*routine(void	*v_philo)
 	while (1)
 	{
 		if (philo_eat(philo, "has taken a fork"))
-			break;
+			break ;
 	}
 }
 
@@ -45,6 +45,15 @@ void	thread_create(t_data	*philo)
 	int	i;
 
 	i = 0;
+	while (i < philo->number_of_philosophers)
+	{
+		pthread_create(&philo->philosophers[i].th, NULL, &routine,
+			&philo->philosophers[i]);
+		philo->philosophers[i].who = i + 1;
+		i += 2;
+		usleep(100);
+	}
+	i = 1;
 	while (i < philo->number_of_philosophers)
 	{
 		pthread_create(&philo->philosophers[i].th, NULL, &routine,

@@ -6,7 +6,7 @@
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:07:02 by yokten            #+#    #+#             */
-/*   Updated: 2023/09/04 02:33:08 by yokten           ###   ########.fr       */
+/*   Updated: 2023/09/04 12:10:30 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int	compute_time(t_philo	*philo)
 
 int	philo_eat(t_philo	*philo, char *message)
 {
-	
+		
 }

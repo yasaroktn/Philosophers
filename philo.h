@@ -6,7 +6,7 @@
 /*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 00:13:32 by yokten            #+#    #+#             */
-/*   Updated: 2023/09/04 01:49:56 by yokten           ###   ########.fr       */
+/*   Updated: 2023/09/04 09:14:18 by yokten           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_philo
 	int				who;
 	int				real_time;
 	int				start_time;
+	phtread_mutex_t	right_fork;
+	phtread_mutex_t	left_fork;
 	struct timeval	timeval;
 }	t_philo;
 
