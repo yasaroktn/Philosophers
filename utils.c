@@ -1,46 +1,85 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yokten <yokten@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 08:58:42 by yokten            #+#    #+#             */
-/*   Updated: 2023/09/03 21:20:12 by yokten           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo.h"
 
-int	ft_isdigit(int c)
+void	gettime(t_philo *philo)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	pthread_mutex_lock(philo->lock);
+	gettimeofday(&philo->tv, NULL);
+	philo->ms = (philo->tv.tv_sec * 1000) + (philo->tv.tv_usec / 1000);
+	if (philo->start == 0)
+		philo->start = philo->ms;
+	philo->start_time = (philo->ms) - (philo->start);
+	pthread_mutex_unlock(philo->lock);
 }
 
-int	ft_atoi(const char *str)
+void	go_kill(t_philo *philo)
+{
+	pthread_mutex_lock(philo->lock);
+	if (!*philo->ph_dead)
+	{
+		printf("%ld %d is died\n", philo->start_time, philo->philo_id);
+		*philo->ph_dead = 1;
+	}
+	pthread_mutex_unlock(philo->lock);
+}
+
+int	ft_usleep(t_philo *philo, long ms)
+{
+	long	time;
+
+	gettime(philo);
+	time = philo->start_time;
+	while (philo->start_time < (ms + time))
+	{
+		gettime(philo);
+		if (philo->start_time > philo->death)
+		{
+			go_kill(philo);
+			return (0);
+		}
+		usleep(100);
+	}
+	return (1);
+}
+
+int	ft_atoi(char *s)
 {
 	int		i;
 	int		sign;
-	long	to_return;
+	long	temp;
 
 	i = 0;
 	sign = 1;
-	to_return = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+	temp = 0;
+	while (s[i] <= 32)
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (s[i] == '+' || s[i] == '-')
 	{
-		if (str[i] == '-')
+		if (s[i] == '-')
 			sign *= -1;
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (s[i] >= 32)
 	{
-		to_return = to_return * 10 + (str[i] - 48) * sign;
+		temp = (temp * 10) + (s[i] - 48);
+		if (temp * sign > 2147483647)
+			return (0);
+		if (temp * sign < -2147483648)
+			return (-1);
 		i++;
 	}
-	return (to_return);
+	return (temp * sign);
+}
+
+int	is_digit(char *arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		if (arr[i] < '0' || arr[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }

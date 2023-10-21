@@ -1,33 +1,58 @@
-FILES = main.c				\
-		control.c 			\
-		malloc_menagement.c \
-		utils.c				\
+NAME	=	philo
+CC		=	gcc
+INC		=	philo.h
+CFLAGS	=	-Wall -Wextra -Werror -pthread #-fsanitize=thread -g
+RM		=	rm -rf
 
-BFILES = 
-		 
-NAME = philo
-BNAME = bonus/checker
-OBJS = ${FILES:.c=.o}
-BOBJS = ${BFILES:.c=.o}
-FLAGS = -Wall -Wextra -Werror
-all : ${NAME}
-${NAME}: ${OBJS}
-	${CC} ${FLAGS} ${OBJS} -o ${NAME}
-bonus : ${BNAME}
-${BNAME}: ${BOBJS}
-	${CC} ${FLAGS} ${BOBJS} -o ${BNAME}
-fclean :
-	rm -rf ${OBJS} ${BOBJS} ${NAME} ${BNAME}
-clean : 
-	rm -rf ${OBJS} ${BOBJS} 
-%.o:%.c
-	${CC} -c $^ ${FLAGS} -o $@
+SRCS	=	philo.c			\
+			transactions.c	\
+			setup.c			\
+			thread.c		\
+			utils.c			\
 
-re : fclean all
+OBJS = $(SRCS:.c=.o)
 
-git : 
-	git add .
-	git commit -m "auto commit"
-	git push
+Y = "\033[33m"
+R = "\033[31m"
+G = "\033[32m"
+B = "\033[34m"
 
-.PHONY: all re fclean clean
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@echo $(R)███████████████████████████
+	@echo $(R)███████▀▀▀░░░░░░░▀▀▀███████
+	@echo $(R)████▀░░░░░░░░░░░░░░░░░▀████
+	@echo $(R)███│░░░░░░░░░░░░░░░░░░░│███
+	@echo $(R)██▌│░░░░░░░░░░░░░░░░░░░│▐██
+	@echo $(R)██░└┐░░░░░░░░░░░░░░░░░┌┘░██
+	@echo $(R)██░░└┐░░░░░░░░░░░░░░░┌┘░░██
+	@echo $(R)██░░┌┘▄▄▄▄▄░░░░░▄▄▄▄▄└┐░░██
+	@echo $(R)██▌░│██████▌░░░▐██████│░▐██
+	@echo $(R)███░│▐███▀▀░░▄░░▀▀███▌│░███
+	@echo $(R)██▀─┘░░░░░░░▐█▌░░░░░░░└─▀██
+	@echo $(R)██▄░░░▄▄▄▓░░▀█▀░░▓▄▄▄░░░▄██
+	@echo $(R)████▄─┘██▌░░░░░░░▐██└─▄████
+	@echo $(R)█████░░▐█─┬┬┬┬┬┬┬─█▌░░█████
+	@echo $(R)████▌░░░▀┬┼┼┼┼┼┼┼┬▀░░░▐████
+	@echo $(R)█████▄░░░└┴┴┴┴┴┴┴┘░░░▄█████
+	@echo $(R)███████▄░░░░░░░░░░░▄███████
+	@echo $(R)██████████▄▄▄▄▄▄▄██████████
+	@echo $(R)███████████████████████████
+
+%.o: %.c $(INC)
+	@echo $(Y)▂▃▄▅▆▇█▓▒░CREAT░▒▓█▇▆▅▄▃▂ [$<]
+	@$(CC) -c $< -o $@ $(CFLAGS)
+
+clean:
+	@$(RM) $(OBJS)
+	@echo $(B)▂▃▄▅▆▇█▓▒░CLEAN░▒▓█▇▆▅▄▃▂ [$(OBJS)]
+
+fclean: clean
+	@$(RM) $(NAME)
+	@echo $(B)▂▃▄▅▆▇█▓▒░CLEAN░▒▓█▇▆▅▄▃▂ [$(NAME)]
+
+re:	fclean all
+
+.PHONY: all, clean, fclean, re
