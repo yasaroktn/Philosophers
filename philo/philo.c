@@ -51,17 +51,17 @@ int	arg_control(int ac, char **av)
 int	main(int ac, char **av)
 {
 	t_philo	*philo;
-	int		size;
+	int		num_philo;
 
 	if (arg_control(ac, av) == 0)
 		return (1);
-	size = ft_atoi(av[1]);
-	philo = malloc(sizeof(t_philo) * size);
+	num_philo = ft_atoi(av[1]);
+	philo = malloc(sizeof(t_philo) * num_philo);
 	if (!philo)
 		return (0);
-	init_mutex(philo, size);
-	init_philo(philo, av, size);
-	create_thread(philo, size);
+	init_mutex(philo, num_philo);
+	init_philo(philo, av, num_philo);
+	create_thread(philo, num_philo);
 	dead_check(philo);
 	ft_free(philo);
 	return (0);

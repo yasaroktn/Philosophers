@@ -13,14 +13,14 @@ void	init_mutex(t_philo *philo, int size)
 		pthread_mutex_init(&mutex[i++], NULL);
 	philo->mutex = mutex;
 	i = 1;
+	philo[0].r_mutex = &mutex[0];
+	philo[0].l_mutex = &mutex[size - 1];
 	while (i < size)
 	{
 		philo[i].r_mutex = &mutex[i];
 		philo[i].l_mutex = &mutex[i - 1];
 		i++;
 	}
-	philo[0].r_mutex = &mutex[0];
-	philo[0].l_mutex = &mutex[size - 1];
 }
 
 void	set_basic(t_philo *philo, char **av)

@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void	philo_life(t_philo *philo)
+void	routine(t_philo *philo)
 {
 	if (philo->philo_count == 1)
 	{
@@ -35,7 +35,7 @@ void	create_thread(t_philo *philo, int philo_count)
 	i = 0;
 	while (i < philo_count)
 	{
-		pthread_create(&philo[i].thread, NULL, (void *)philo_life, &philo[i]);
+		pthread_create(&philo[i].thread, NULL, (void *)routine, &philo[i]);
 		pthread_detach(philo[i].thread);
 		i += 2;
 	}
@@ -43,7 +43,7 @@ void	create_thread(t_philo *philo, int philo_count)
 	i = 1;
 	while (i < philo_count)
 	{
-		pthread_create(&philo[i].thread, NULL, (void *)philo_life, &philo[i]);
+		pthread_create(&philo[i].thread, NULL, (void *)routine, &philo[i]);
 		pthread_detach(philo[i].thread);
 		i += 2;
 	}
